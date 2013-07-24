@@ -40,11 +40,11 @@ public class ModelTree {
             }
             tree.addListener(new ModelTreeListener(tree, panel));
         } catch (IOException exception) {
-            String errMsg = "Couldn't connect";
+            String errMsg = "Communication exception";
             tree.addItem(errMsg);
             tree.setChildrenAllowed(errMsg, false);
         } catch (Exception exception) {
-            String errMsg = "Something's fucked up";
+            String errMsg = "HeaRT connection failed!";
             tree.addItem(errMsg);
             tree.setChildrenAllowed(errMsg, false);
         }
