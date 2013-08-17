@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import pl.edu.agh.heart.comm.HeartRepository;
+import pl.edu.agh.heart.model.HMRModel;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.Tree;
@@ -21,7 +22,7 @@ public class ModelTree {
         Tree tree = new Tree();
         tree.setImmediate(true);
         try {
-            HeartRepository hr = new HeartRepository();
+            HeartRepository hr = panel.getMasterPage().getHeartRepository();
             Map<String, List<String>> modelMap = hr.getModelNames();
             for (String user: modelMap.keySet()) {
                 tree.addItem(user);
@@ -30,7 +31,7 @@ public class ModelTree {
                     tree.setChildrenAllowed(user, false);
                 } else {
                     for (String model: l) {
-                        Model m = new Model(user, model);
+                        ModelTreeItem m = new ModelTreeItem(user, model);
                         tree.addItem(m);
                         tree.setChildrenAllowed(m, false);
                         tree.setParent(m, user);
@@ -52,10 +53,10 @@ public class ModelTree {
         }
     }
     
-    static class Model {
+    static class ModelTreeItem {
         public String user, name;
         
-        public Model(String user, String name) {
+        public ModelTreeItem(String user, String name) {
             this.user = user;
             this.name = name;
         }
@@ -78,12 +79,13 @@ class ModelTreeListener implements ValueChangeListener {
     
     public void valueChange(ValueChangeEvent pEvent) {
         Object value = tree.getValue();
-        if (value instanceof ModelTree.Model) {
+        if (value instanceof ModelTree.ModelTreeItem) {
             try {
-                ModelTree.Model model = (ModelTree.Model) value;
-                HeartRepository hr = new HeartRepository();
+                ModelTree.ModelTreeItem model = (ModelTree.ModelTreeItem) value;
+                HeartRepository hr = panel.getMasterPage().getHeartRepository();
                 String modelDef = hr.getModelHMR(model.name, model.user);
-                panel.getText().setValue(modelDef);
+//                panel.getText().setValue(modelDef);
+                panel.displayDetails(new HMRModel(modelDef));
             } catch (IOException exception) {
                 panel.getText().setValue("Couldn't connect to HeaRT");
             } catch (Exception exception) {

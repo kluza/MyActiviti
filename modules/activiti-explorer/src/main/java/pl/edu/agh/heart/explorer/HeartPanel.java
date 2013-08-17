@@ -8,6 +8,7 @@
 package pl.edu.agh.heart.explorer;
 
 import org.activiti.explorer.ui.custom.DetailPanel;
+import pl.edu.agh.heart.model.HMRModel;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Tree;
@@ -16,23 +17,42 @@ import com.vaadin.ui.Tree;
 public class HeartPanel extends DetailPanel {
     private Tree modelTree;
     private TextArea text = new TextArea();
+    private HeartPage masterPage;
+    private HorizontalLayout layout;
+    private ModelDetailView modelDetails;
+    
+    public HeartPanel(HeartPage p) {
+        masterPage = p;
+    }
     
     public void attach() {
         super.attach();
-        HorizontalLayout layout = new HorizontalLayout();
+        setImmediate(true);
+        layout = new HorizontalLayout();
+        layout.setImmediate(true);
+        addDetailComponent(layout);
+        setDetailExpandRatio(layout, 1.0F);
         modelTree = ModelTree.get(this);
         layout.addComponent(modelTree);
-        layout.addComponent(text);
+//        layout.addComponent(text);
+        modelDetails = new ModelDetailView();
+        layout.addComponent(modelDetails);
         layout.setExpandRatio(modelTree, 1);
-        layout.setExpandRatio(text, 8);
-        addDetailComponent(layout);
+        layout.setExpandRatio(modelDetails, 8);
         layout.setSizeFull();
         layout.setHeight("100%");
-        text.setHeight("100%");
-        text.setSizeFull();
+        modelDetails.setHeight("100%");
+    }
+    
+    public void displayDetails(HMRModel model) {
+        modelDetails.setData(model);
     }
     
     TextArea getText() {
         return text;
+    }
+    
+    public HeartPage getMasterPage() {
+        return masterPage;
     }
 }

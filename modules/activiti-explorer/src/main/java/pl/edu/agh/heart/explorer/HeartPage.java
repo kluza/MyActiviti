@@ -7,12 +7,16 @@
  */
 package pl.edu.agh.heart.explorer;
 
+import java.io.IOException;
 import org.activiti.explorer.ui.AbstractPage;
 import org.activiti.explorer.ui.custom.ToolBar;
+import pl.edu.agh.heart.comm.HeartRepository;
 import com.vaadin.ui.AbstractSelect;
 
 /** @author ja */
 public class HeartPage extends AbstractPage {
+    private HeartRepository heartRepository;
+    private HeartPanel detailPanel;
     
     protected ToolBar createMenuBar() {
         return null;
@@ -31,7 +35,16 @@ public class HeartPage extends AbstractPage {
     @Override
     public void initUi() {
         super.initUi();
-        setDetailComponent(new HeartPanel());
+        try {
+            heartRepository = new HeartRepository();
+        } catch (IOException exception) {
+            // TODO Handle exception using log4j or CLog
+        }
+        detailPanel = new HeartPanel(this);
+        setDetailComponent(detailPanel);
     }
     
+    public HeartRepository getHeartRepository() {
+        return heartRepository;
+    }
 }
