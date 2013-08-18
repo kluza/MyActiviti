@@ -103,27 +103,27 @@ public class HMRModel {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(":- dynamic(xtype)/1.\n\n");
-        sb.append(list2str(types));
+        sb.append(list2str(types) + '\n');
         sb.append(":- dynamic(xtpgr)/1.\n\n");
-        sb.append(list2str(typeGroups));
+        sb.append(list2str(typeGroups) + '\n');
         sb.append(":- dynamic(xattr)/1.\n\n");
-        sb.append(list2str(attributes));
+        sb.append(list2str(attributes) + '\n');
         sb.append(":- dynamic(xatgr)/1.\n\n");
-        sb.append(list2str(attGroups));
+        sb.append(list2str(attGroups) + '\n');
         sb.append(":- dynamic(xschm)/1.\n\n");
-        sb.append(list2str(schemes));
+        sb.append(list2str(schemes) + '\n');
         sb.append(":- dynamic(xrule)/1.\n\n");
-        sb.append(list2str(rules));
+        sb.append(list2str(rules) + '\n');
         sb.append(":- dynamic(xstat)/1.\n\n");
-        sb.append(list2str(states));
+        sb.append(list2str(states) + '\n');
         sb.append(":- dynamic(xcall)/1.\n\n");
-        sb.append(list2str(callbacks));
+        sb.append(list2str(callbacks) + '\n');
         sb.append(":- dynamic(xactn)/1.\n\n");
-        sb.append(list2str(actions));
+        sb.append(list2str(actions) + '\n');
         sb.append(":- dynamic(xhalv)/1.\n\n");
-        sb.append(list2str(verifications));
+        sb.append(list2str(verifications) + '\n');
         sb.append(":- dynamic(xtraj)/1.\n\n");
-        sb.append(list2str(trajectories));
+        sb.append(list2str(trajectories) + '\n');
         return sb.toString();
     }
 }

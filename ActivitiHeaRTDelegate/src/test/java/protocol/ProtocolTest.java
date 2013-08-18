@@ -9,7 +9,9 @@ package protocol;
 
 import org.junit.Test;
 import pl.edu.agh.heart.comm.HeartRepository;
+import pl.edu.agh.heart.comm.HeartRequestHandler;
 import pl.edu.agh.heart.comm.HttpConnector;
+import pl.edu.agh.heart.model.HMRModel;
 
 /** @author ja */
 public class ProtocolTest {
@@ -27,17 +29,23 @@ public class ProtocolTest {
     public void hmrTest() throws Exception {
         HttpConnector httpConn = new HttpConnector(true, "localhost", 8090);
         HeartRepository hr = new HeartRepository();
+        HeartRequestHandler hrh = new HeartRequestHandler();
         String hmrDef = hr.getModelHMR("first", "jBPM");
-        System.out.println(hmrDef);
+        HMRModel model = new HMRModel(hmrDef);
         String request =
                 "[model,add,hmr,'MyName','Username','xtype [ name: week_days, base: symbolic, ordered: yes, domain: [moday,tuesday], desc: \\'This is only one definition\\'].']. ";
         System.out.println(request);
         String r = java.util.regex.Matcher.quoteReplacement("\\'");
         System.out.println(r);
-        String request2 =
-                "[model,add,hmr,'second','jBPM','" + hmrDef.replaceAll("\n", "").replaceAll("'", r) + "'].";
-        System.out.println(request2);
-        String response = httpConn.performRequest(request2);
+//        String request2 = "[model,add,hmr,'second','jBPM','" + model.toString().replaceAll("'", r) + "'].";
+//        System.out.println(request2);
+//        String response = httpConn.performRequest(request2);
+//        System.out.println(response);
+        System.out.println(hr.pushModelHMR("third", "jBPM", model.toString()));
+        
+        String[] tabs = {"ms"};
+        String iReq = hrh.inferenceRequest("jBPM", "third", "foi", tabs, "s1");
+        String response = httpConn.performRequest(iReq);
         System.out.println(response);
     }
 }

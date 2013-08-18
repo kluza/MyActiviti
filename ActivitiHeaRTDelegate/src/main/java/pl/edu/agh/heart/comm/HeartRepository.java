@@ -59,4 +59,16 @@ public class HeartRepository {
         modelDef = modelDef.replace(".", ".\n");
         return modelDef;
     }
+    
+    public boolean pushModelHMR(String modelName, String userName, String hmr) throws Exception {
+        String r = java.util.regex.Matcher.quoteReplacement("\\'");
+        String request =
+                "[model,add,hmr,'" + modelName + "','" + userName + "','" + hmr.replaceAll("'", r) + "'].";
+        String response = httpConnector.performRequest(request);
+        if (response.equals("[true]")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
