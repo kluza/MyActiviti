@@ -46,7 +46,7 @@ public class HeartPanel extends DetailPanel {
         mainLayout.setExpandRatio(sideLayout, 8);
         mainLayout.setSizeFull();
         mainLayout.setHeight("100%");
-        modelDetails.setHeight("100%");
+        modelDetails.setHeight(300F, UNITS_PIXELS);
     }
     
     public void displayDetails(HMRModel model, String modelName, String userName) {
