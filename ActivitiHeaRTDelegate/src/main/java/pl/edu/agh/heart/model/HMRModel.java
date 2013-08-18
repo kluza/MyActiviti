@@ -93,10 +93,37 @@ public class HMRModel {
     }
     
     public String getSchemesAndRules() {
-        return list2str(schemes) + "\n\n" + list2str(rules);
+        return list2str(schemes) + "\n" + list2str(rules);
     }
     
     public String getCallbacks() {
         return list2str(callbacks);
+    }
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(":- dynamic(xtype)/1.\n\n");
+        sb.append(list2str(types));
+        sb.append(":- dynamic(xtpgr)/1.\n\n");
+        sb.append(list2str(typeGroups));
+        sb.append(":- dynamic(xattr)/1.\n\n");
+        sb.append(list2str(attributes));
+        sb.append(":- dynamic(xatgr)/1.\n\n");
+        sb.append(list2str(attGroups));
+        sb.append(":- dynamic(xschm)/1.\n\n");
+        sb.append(list2str(schemes));
+        sb.append(":- dynamic(xrule)/1.\n\n");
+        sb.append(list2str(rules));
+        sb.append(":- dynamic(xstat)/1.\n\n");
+        sb.append(list2str(states));
+        sb.append(":- dynamic(xcall)/1.\n\n");
+        sb.append(list2str(callbacks));
+        sb.append(":- dynamic(xactn)/1.\n\n");
+        sb.append(list2str(actions));
+        sb.append(":- dynamic(xhalv)/1.\n\n");
+        sb.append(list2str(verifications));
+        sb.append(":- dynamic(xtraj)/1.\n\n");
+        sb.append(list2str(trajectories));
+        return sb.toString();
     }
 }

@@ -20,7 +20,6 @@ public class HMRObjectModel {
         String modeldef = hr.getModelHMR("first", "jBPM");
         HMRModel model = new HMRModel(modeldef);
         
-        System.out.println(model.getAttributes());
+        System.out.println(model.getSchemesAndRules());
     }
-    
 }
