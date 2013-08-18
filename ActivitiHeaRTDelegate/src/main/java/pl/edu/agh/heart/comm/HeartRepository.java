@@ -51,13 +51,16 @@ public class HeartRepository {
     }
     
     public String getModelHMR(String modelName, String userName) throws Exception {
-        String request = "[model,get,hmr," + modelName + "," + userName + ",[[all]]].";
+        String request = "[model,get,hmr,'" + modelName + "','" + userName + "',[[all]]].";
         String response = httpConnector.performRequest(request);
-        String modelDef = response.split(",", 2)[1];
-        int length = modelDef.length();
-        modelDef = modelDef.substring(1, length - 2);
-        modelDef = modelDef.replace(".", ".\n");
-        return modelDef;
+        if (response.split(",")[0].trim().equals("[true")) {
+            String modelDef = response.split(",", 2)[1];
+            int length = modelDef.length();
+            modelDef = modelDef.substring(1, length - 2);
+            modelDef = modelDef.replace(".", ".\n");
+            return modelDef;
+        }
+        return null;
     }
     
     public boolean pushModelHMR(String modelName, String userName, String hmr) throws Exception {
