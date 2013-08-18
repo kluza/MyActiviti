@@ -85,7 +85,11 @@ class ModelTreeListener implements ValueChangeListener {
                 HeartRepository hr = panel.getMasterPage().getHeartRepository();
                 String modelDef = hr.getModelHMR(model.name, model.user);
 //                panel.getText().setValue(modelDef);
-                panel.displayDetails(new HMRModel(modelDef));
+                if (modelDef != null) {
+                    panel.displayDetails(new HMRModel(modelDef), model.name, model.user);
+                } else {
+                    panel.disableDetails();
+                }
             } catch (IOException exception) {
                 panel.getText().setValue("Couldn't connect to HeaRT");
             } catch (Exception exception) {

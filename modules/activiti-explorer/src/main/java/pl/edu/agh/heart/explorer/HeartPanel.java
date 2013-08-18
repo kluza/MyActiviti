@@ -12,13 +12,15 @@ import pl.edu.agh.heart.model.HMRModel;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.VerticalLayout;
 
 /** @author ja */
 public class HeartPanel extends DetailPanel {
     private Tree modelTree;
     private TextArea text = new TextArea();
     private HeartPage masterPage;
-    private HorizontalLayout layout;
+    private HorizontalLayout mainLayout;
+    private VerticalLayout sideLayout;
     private ModelDetailView modelDetails;
     
     public HeartPanel(HeartPage p) {
@@ -28,24 +30,31 @@ public class HeartPanel extends DetailPanel {
     public void attach() {
         super.attach();
         setImmediate(true);
-        layout = new HorizontalLayout();
-        layout.setImmediate(true);
-        addDetailComponent(layout);
-        setDetailExpandRatio(layout, 1.0F);
+        mainLayout = new HorizontalLayout();
+        mainLayout.setImmediate(true);
+        sideLayout = new VerticalLayout();
+        sideLayout.setImmediate(true);
+        addDetailComponent(mainLayout);
+        setDetailExpandRatio(mainLayout, 1.0F);
         modelTree = ModelTree.get(this);
-        layout.addComponent(modelTree);
+        mainLayout.addComponent(modelTree);
 //        layout.addComponent(text);
         modelDetails = new ModelDetailView();
-        layout.addComponent(modelDetails);
-        layout.setExpandRatio(modelTree, 1);
-        layout.setExpandRatio(modelDetails, 8);
-        layout.setSizeFull();
-        layout.setHeight("100%");
+        sideLayout.addComponent(modelDetails);
+        mainLayout.addComponent(sideLayout);
+        mainLayout.setExpandRatio(modelTree, 1);
+        mainLayout.setExpandRatio(sideLayout, 8);
+        mainLayout.setSizeFull();
+        mainLayout.setHeight("100%");
         modelDetails.setHeight("100%");
     }
     
-    public void displayDetails(HMRModel model) {
-        modelDetails.setData(model);
+    public void displayDetails(HMRModel model, String modelName, String userName) {
+        modelDetails.setData(model, modelName, userName);
+    }
+    
+    public void disableDetails() {
+        modelDetails.clear();
     }
     
     TextArea getText() {
@@ -54,5 +63,9 @@ public class HeartPanel extends DetailPanel {
     
     public HeartPage getMasterPage() {
         return masterPage;
+    }
+    
+    public ModelDetailView getModelDetails() {
+        return modelDetails;
     }
 }

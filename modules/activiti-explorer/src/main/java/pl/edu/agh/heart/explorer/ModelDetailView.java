@@ -17,6 +17,8 @@ public class ModelDetailView extends TabSheet {
     private TextArea attrsTA = new TextArea();
     private TextArea schemesRulesTA = new TextArea();
     private TextArea callbacksTA = new TextArea();
+    private String modelName;
+    private String userName;
     
     public ModelDetailView(HMRModel model) {
         typesTA.setValue(model.getTypes());
@@ -45,10 +47,20 @@ public class ModelDetailView extends TabSheet {
         callbacksTA.setHeight("100%");
     }
     
-    public void setData(HMRModel model) {
+    public void setData(HMRModel model, String modelName, String userName) {
         typesTA.setValue(model.getTypes());
         attrsTA.setValue(model.getAttributes());
         schemesRulesTA.setValue(model.getSchemesAndRules());
         callbacksTA.setValue(model.getCallbacks());
+        this.modelName = modelName;
+        this.userName = userName;
+    }
+    
+    public void clear() {
+        modelName = userName = null;
+        typesTA.setValue(null);
+        attrsTA.setValue(null);
+        schemesRulesTA.setValue(null);
+        callbacksTA.setValue(null);
     }
 }
