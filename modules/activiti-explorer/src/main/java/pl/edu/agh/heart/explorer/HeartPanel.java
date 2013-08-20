@@ -39,7 +39,7 @@ public class HeartPanel extends DetailPanel {
         modelTree = ModelTree.get(this);
         mainLayout.addComponent(modelTree);
 //        layout.addComponent(text);
-        modelDetails = new ModelDetailView();
+        modelDetails = new ModelDetailView(masterPage);
         sideLayout.addComponent(modelDetails);
         mainLayout.addComponent(sideLayout);
         mainLayout.setExpandRatio(modelTree, 1);
