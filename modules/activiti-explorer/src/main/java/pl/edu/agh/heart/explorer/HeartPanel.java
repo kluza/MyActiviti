@@ -9,19 +9,19 @@ package pl.edu.agh.heart.explorer;
 
 import org.activiti.explorer.ui.custom.DetailPanel;
 import pl.edu.agh.heart.model.HMRModel;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.TextArea;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
 /** @author ja */
 public class HeartPanel extends DetailPanel {
     private Tree modelTree;
-    private TextArea text = new TextArea();
     private HeartPage masterPage;
     private HorizontalLayout mainLayout;
     private VerticalLayout sideLayout;
     private ModelDetailView modelDetails;
+    private Button saveButton;
     
     public HeartPanel(HeartPage p) {
         masterPage = p;
@@ -41,6 +41,14 @@ public class HeartPanel extends DetailPanel {
 //        layout.addComponent(text);
         modelDetails = new ModelDetailView(masterPage);
         sideLayout.addComponent(modelDetails);
+        saveButton = new Button("Push to HeaRT");
+        saveButton.setEnabled(false);
+        saveButton.addListener(new Button.ClickListener() {
+            public void buttonClick(Button.ClickEvent event) {
+                modelDetails.saveContent();
+            }
+        });
+        sideLayout.addComponent(saveButton);
         mainLayout.addComponent(sideLayout);
         mainLayout.setExpandRatio(modelTree, 1);
         mainLayout.setExpandRatio(sideLayout, 8);
@@ -51,14 +59,12 @@ public class HeartPanel extends DetailPanel {
     
     public void displayDetails(HMRModel model, String modelName, String userName) {
         modelDetails.setData(model, modelName, userName);
+        saveButton.setEnabled(true);
     }
     
     public void disableDetails() {
         modelDetails.clear();
-    }
-    
-    TextArea getText() {
-        return text;
+        saveButton.setEnabled(false);
     }
     
     public HeartPage getMasterPage() {

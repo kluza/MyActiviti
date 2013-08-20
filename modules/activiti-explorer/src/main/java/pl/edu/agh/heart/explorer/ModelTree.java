@@ -91,9 +91,9 @@ class ModelTreeListener implements ValueChangeListener {
                     panel.disableDetails();
                 }
             } catch (IOException exception) {
-                panel.getText().setValue("Couldn't connect to HeaRT");
+//                panel.getText().setValue("Couldn't connect to HeaRT");
             } catch (Exception exception) {
-                panel.getText().setValue("HeaRT communication error");
+//                panel.getText().setValue("HeaRT communication error");
             }
         }
     }
