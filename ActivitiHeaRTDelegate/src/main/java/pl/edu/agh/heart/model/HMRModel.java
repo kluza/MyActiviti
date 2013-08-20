@@ -44,7 +44,15 @@ public class HMRModel {
         return sb.toString();
     }
     
+    public HMRModel() {
+        
+    }
+    
     public HMRModel(String hmrDef) {
+        parseData(hmrDef);
+    }
+    
+    public void parseData(String hmrDef) {
         String[] modelLines = hmrDef.split("\\.");
         for (String foo: modelLines) {
             String line = foo.trim().replace("\n", "") + '.';
