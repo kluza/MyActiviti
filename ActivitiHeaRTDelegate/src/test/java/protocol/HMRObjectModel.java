@@ -21,5 +21,9 @@ public class HMRObjectModel {
         HMRModel model = new HMRModel(modeldef);
         
         System.out.println(model.getSchemesAndRules());
+        
+        String foo = "xrule ms/1:[month in [january,february,december]]==>[season set summer].";
+        model.parseData(foo);
+        System.out.println(hr.pushModelHMR("test", "jBPM", model.toString()));
     }
 }

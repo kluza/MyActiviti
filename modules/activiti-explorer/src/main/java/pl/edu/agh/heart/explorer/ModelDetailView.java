@@ -24,6 +24,7 @@ public class ModelDetailView extends TabSheet {
     private HMRModel model;
     
     public ModelDetailView(HeartPage masterPage) {
+        this.masterPage = masterPage;
         addTab(typesTA, "Types");
         addTab(attrsTA, "Attributes");
         addTab(schemesRulesTA, "Schemes & Rules");
@@ -51,21 +52,22 @@ public class ModelDetailView extends TabSheet {
     public void clear() {
         modelName = userName = null;
         model = null;
-        typesTA.setValue(null);
-        attrsTA.setValue(null);
-        schemesRulesTA.setValue(null);
-        callbacksTA.setValue(null);
+        typesTA.setValue("");
+        attrsTA.setValue("");
+        schemesRulesTA.setValue("");
+        callbacksTA.setValue("");
     }
     
     public void saveContent() {
         if (model != null) {
-            model.parseData(typesTA.getValue().toString());
-            model.parseData(attrsTA.getValue().toString());
-            model.parseData(schemesRulesTA.getValue().toString());
-            model.parseData(callbacksTA.getValue().toString());
+            HMRModel mToPush = new HMRModel();
+            mToPush.parseData(typesTA.getValue().toString());
+            mToPush.parseData(attrsTA.getValue().toString());
+            mToPush.parseData(schemesRulesTA.getValue().toString());
+            mToPush.parseData(callbacksTA.getValue().toString());
             HeartRepository hr = masterPage.getHeartRepository();
             try {
-                hr.pushModelHMR(modelName, userName, model.toString());
+                hr.pushModelHMR(modelName, userName, mToPush.toString());
             } catch (Exception exception) {
                 // TODO Handle exception using log4j or CLog
             }
