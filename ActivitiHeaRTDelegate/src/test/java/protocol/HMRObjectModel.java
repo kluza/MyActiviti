@@ -26,5 +26,6 @@ public class HMRObjectModel {
         model.parseData(foo);
 //        System.out.println(hr.pushModelHMR("test", "jBPM", model.toString()));
         System.out.println(model.getSchemeNames());
+        System.out.println(hr.verifyModel("first", "jBPM", "vsubsume", "nigger"));
     }
 }

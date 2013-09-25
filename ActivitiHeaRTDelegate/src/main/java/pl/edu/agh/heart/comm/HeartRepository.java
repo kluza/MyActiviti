@@ -74,4 +74,11 @@ public class HeartRepository {
             return false;
         }
     }
+    
+    public boolean verifyModel(String modelName, String userName, String mode, String scheme)
+            throws Exception {
+        String request = "[model,verify," + mode + ",'" + modelName + "','" + userName + "'," + scheme + "].";
+        String response = httpConnector.performRequest(request);
+        return new HeartRequestHandler().isSuccess(response);
+    }
 }
