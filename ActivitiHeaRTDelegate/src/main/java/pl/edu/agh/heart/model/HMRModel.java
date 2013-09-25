@@ -35,6 +35,7 @@ public class HMRModel {
     private List<String> actions = new ArrayList<String>();
     private List<String> verifications = new ArrayList<String>();
     private List<String> trajectories = new ArrayList<String>();
+    private List<String> schemeNames = new ArrayList<String>();
     
     private String list2str(List<String> list) {
         StringBuilder sb = new StringBuilder();
@@ -70,6 +71,7 @@ public class HMRModel {
             }
             if (line.matches(SCHEME)) {
                 schemes.add(line);
+                extractSchemeName(line);
             }
             if (line.matches(RULE)) {
                 rules.add(line);
@@ -106,6 +108,15 @@ public class HMRModel {
     
     public String getCallbacks() {
         return list2str(callbacks);
+    }
+    
+    public List<String> getSchemeNames() {
+        return schemeNames;
+    }
+    
+    private void extractSchemeName(String schemeLine) {
+        String name = schemeLine.split(" ", 2)[1].split(":", 2)[0].trim();
+        schemeNames.add(name);
     }
     
     public String toString() {
