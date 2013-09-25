@@ -7,6 +7,7 @@
  */
 package pl.edu.agh.heart.explorer;
 
+import org.activiti.explorer.ExplorerApp;
 import pl.edu.agh.heart.comm.HeartRepository;
 import pl.edu.agh.heart.model.HMRModel;
 import com.vaadin.ui.TabSheet;
@@ -72,5 +73,12 @@ public class ModelDetailView extends TabSheet {
                 // TODO Handle exception using log4j or CLog
             }
         }
+    }
+    
+    public void showVerifyPopup() {
+        ExplorerApp
+                .get()
+                .getViewManager()
+                .showPopupWindow(new VerifyPopup(masterPage.getHeartRepository(), modelName, userName, model));
     }
 }

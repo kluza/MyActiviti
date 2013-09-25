@@ -21,7 +21,9 @@ public class HeartPanel extends DetailPanel {
     private HorizontalLayout mainLayout;
     private VerticalLayout sideLayout;
     private ModelDetailView modelDetails;
+    private HorizontalLayout buttonLayout;
     private Button saveButton;
+    private Button verifyButton;
     
     public HeartPanel(HeartPage p) {
         masterPage = p;
@@ -48,7 +50,17 @@ public class HeartPanel extends DetailPanel {
                 modelDetails.saveContent();
             }
         });
-        sideLayout.addComponent(saveButton);
+        verifyButton = new Button("Verify model");
+        verifyButton.setEnabled(false);
+        verifyButton.addListener(new Button.ClickListener() {
+            public void buttonClick(Button.ClickEvent event) {
+                modelDetails.showVerifyPopup();
+            }
+        });
+        buttonLayout = new HorizontalLayout();
+        buttonLayout.addComponent(saveButton);
+        buttonLayout.addComponent(verifyButton);
+        sideLayout.addComponent(buttonLayout);
         mainLayout.addComponent(sideLayout);
         mainLayout.setExpandRatio(modelTree, 1);
         mainLayout.setExpandRatio(sideLayout, 8);
@@ -60,11 +72,13 @@ public class HeartPanel extends DetailPanel {
     public void displayDetails(HMRModel model, String modelName, String userName) {
         modelDetails.setData(model, modelName, userName);
         saveButton.setEnabled(true);
+        verifyButton.setEnabled(true);
     }
     
     public void disableDetails() {
         modelDetails.clear();
         saveButton.setEnabled(false);
+        verifyButton.setEnabled(false);
     }
     
     public HeartPage getMasterPage() {
