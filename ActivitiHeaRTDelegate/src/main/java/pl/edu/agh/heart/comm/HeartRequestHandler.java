@@ -12,13 +12,15 @@ public class HeartRequestHandler {
     public String inferenceRequest(String userName, String modelName, String method, String[] tables,
             String state) {
         StringBuilder tabSB = new StringBuilder();
-        tabSB.append('[');
-        for (String t: tables) {
-            tabSB.append(t + ',');
+        tabSB.append("['");
+        for (int i = 0; i < tables.length; i++) {
+            tabSB.append(tables[i]);
+            if (i < (tables.length - 1)) {
+                tabSB.append("','");
+            }
         }
-        tabSB.deleteCharAt(tabSB.length() - 1);
-        tabSB.append(']');
-        return "[model,run," + modelName + "," + userName + "," + method + "," + tabSB.toString() + ","
+        tabSB.append("']");
+        return "[model,run,'" + modelName + "','" + userName + "'," + method + "," + tabSB.toString() + ","
                 + state + "].";
     }
     
