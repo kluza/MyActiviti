@@ -76,6 +76,6 @@ public class HeartRequestHandler {
     }
     
     public String schemeRequest(String modelName, String userName, String table) {
-        return "[scheme,get," + modelName + "," + userName + "," + table + "].";
+        return "[scheme,get,'" + modelName + "','" + userName + "','" + table + "'].";
     }
 }

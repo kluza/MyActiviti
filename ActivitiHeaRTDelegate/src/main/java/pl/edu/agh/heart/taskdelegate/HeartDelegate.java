@@ -69,6 +69,8 @@ public class HeartDelegate implements JavaDelegate {
             }
             stateVars.add(att);
         }
+        
+        System.out.println("\n\n###\n\nstate: " + stateVars + "\n\n###\n\n");
         for (String att: stateVars) {
             stateMap.put(att, execution.getVariable(att));
         }
