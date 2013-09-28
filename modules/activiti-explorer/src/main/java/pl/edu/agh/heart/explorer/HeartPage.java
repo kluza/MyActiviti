@@ -47,4 +47,5 @@ public class HeartPage extends AbstractPage {
     public HeartRepository getHeartRepository() {
         return heartRepository;
     }
+    
 }
