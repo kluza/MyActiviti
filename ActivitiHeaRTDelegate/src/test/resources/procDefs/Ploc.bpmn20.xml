@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="ploc" name="My process" isExecutable="true">
+    <startEvent id="startevent1" name="Start"></startEvent>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
+    <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
+    <scriptTask id="scripttask1" name="Init values" scriptFormat="groovy" activiti:autoStoreVariables="true">
+      <script>execution.setVariable("accidentNo",1);
+execution.setVariable("clientClass",5);
+execution.setVariable("driverAge",40);
+execution.setVariable("driverLicenceAge",10);
+execution.setVariable("carCapacity",800);
+execution.setVariable("carAge",3);
+execution.setVariable("seatsNo",5);
+execution.setVariable("antiqueCar",0);
+execution.setVariable("technical",1);
+execution.setVariable("installmentNo",1);
+execution.setVariable("insuranceCont",0);
+execution.setVariable("insuranceCarsNo",1);
+execution.setVariable("insuranceHistory",0);
+execution.setVariable("otherInsurance",1);</script>
+    </scriptTask>
+    <scriptTask id="scripttask2" name="Display variables" scriptFormat="groovy" activiti:autoStoreVariables="true">
+      <script>out:println("accidentNo: " + execution.getVariable("accidentNo"));
+out:println("clientClass: " + execution.getVariable("clientClass"));
+out:println("driverAge: " + execution.getVariable("driverAge"));
+out:println("driverLicenceAge: " + execution.getVariable("driverLicenceAge"));
+out:println("carCapacity: " + execution.getVariable("carCapacity"));
+out:println("carAge: " + execution.getVariable("carAge"));
+out:println("seatsNo: " + execution.getVariable("seatsNo"));
+out:println("antiqueCar: " + execution.getVariable("antiqueCar"));
+out:println("technical: " + execution.getVariable("technical"));
+out:println("installmentNo: " + execution.getVariable("installmentNo"));
+out:println("insuranceCont: " + execution.getVariable("insuranceCont"));
+out:println("insuranceCarsNo: " + execution.getVariable("insuranceCarsNo"));
+out:println("insuranceHistory: " + execution.getVariable("insuranceHistory"));
+out:println("otherInsurance: " + execution.getVariable("otherInsurance"));
+out:println("driverDiscount: " + execution.getVariable("driverDiscount"));
+out:println("baseCharge: " + execution.getVariable("baseCharge"));
+out:println("carDiscount: " + execution.getVariable("carDiscount"));
+out:println("otherDiscount: " + execution.getVariable("otherDiscount"));
+out:println("payment: " + execution.getVariable("payment"));</script>
+    </scriptTask>
+    <serviceTask id="servicetask1" name="Table1" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>Table1</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask2" name="BonusMalus" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>BonusMalus</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask3" name="DriverDiscount1" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>DriverDiscount1</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask4" name="DriverDiscount2" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>DriverDiscount2</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask5" name="BaseCharge" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>BaseCharge</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask6" name="CarDiscount1" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>CarDiscount1</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask7" name="CarDiscount2" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>CarDiscount2</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask8" name="CarDiscount3" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>CarDiscount3</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask9" name="OtherDicount1" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>OtherDicount1</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask10" name="OtherDiscount2" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>OtherDiscount2</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask11" name="OtherDiscount3" activiti:class="pl.edu.agh.heart.taskdelegate.HeartDelegate" activiti:extensionId="heart.taskdef.HeartInference">
+      <extensionElements>
+        <activiti:field name="userName">
+          <activiti:string>activiti</activiti:string>
+        </activiti:field>
+        <activiti:field name="modelName">
+          <activiti:string>ploc</activiti:string>
+        </activiti:field>
+        <activiti:field name="table">
+          <activiti:string>OtherDiscount3</activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="scripttask1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="scripttask1" targetRef="parallelgateway1"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="parallelgateway1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow4" sourceRef="parallelgateway1" targetRef="servicetask5"></sequenceFlow>
+    <sequenceFlow id="flow5" sourceRef="parallelgateway1" targetRef="servicetask6"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="parallelgateway1" targetRef="servicetask9"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="servicetask3" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="servicetask4" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="servicetask5" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="servicetask6" targetRef="servicetask7"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="servicetask7" targetRef="servicetask8"></sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="servicetask8" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="servicetask9" targetRef="servicetask10"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="servicetask10" targetRef="servicetask11"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="servicetask11" targetRef="parallelgateway2"></sequenceFlow>
+    <sequenceFlow id="flow17" sourceRef="parallelgateway2" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="servicetask1" targetRef="scripttask2"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="scripttask2" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="servicetask2" targetRef="servicetask3"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ploc">
+    <bpmndi:BPMNPlane bpmnElement="ploc" id="BPMNPlane_ploc">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1110.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway1" id="BPMNShape_parallelgateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="230.0" y="117.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="parallelgateway2" id="BPMNShape_parallelgateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="740.0" y="117.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="90.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask2" id="BPMNShape_scripttask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="970.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="830.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="460.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="600.0" y="20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="520.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="55.0" width="105.0" x="460.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask8" id="BPMNShape_servicetask8">
+        <omgdc:Bounds height="55.0" width="105.0" x="610.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask9" id="BPMNShape_servicetask9">
+        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask10" id="BPMNShape_servicetask10">
+        <omgdc:Bounds height="55.0" width="105.0" x="460.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask11" id="BPMNShape_servicetask11">
+        <omgdc:Bounds height="55.0" width="105.0" x="610.0" y="300.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="45.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="90.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="195.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="230.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="250.0" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="47.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="270.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="250.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="250.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="565.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="600.0" y="47.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="705.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="625.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="405.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="565.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="237.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="715.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="157.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="405.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="565.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="610.0" y="327.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="715.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="327.0"></omgdi:waypoint>
+        <omgdi:waypoint x="760.0" y="157.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="780.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="830.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="935.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="970.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="1075.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1110.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="405.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="460.0" y="47.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

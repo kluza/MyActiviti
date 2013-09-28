@@ -22,17 +22,20 @@ public class PlocInference {
         HeartRequestHandler heartHandler = new HeartRequestHandler();
         String stateDef = heartHandler.makeStateDef(makeStateMap());
         String request =
-                heartHandler.inferenceRequest("jBPM", "ploc", "foi", new String[] {"DriverDiscount1",
-                "DriverDiscount2"}, stateDef);
+                heartHandler.inferenceRequest("activiti", "ploc", "foi", new String[] {"DriverDiscount2"},
+                        stateDef);
         System.out.println(request);
         String response = httpConnector.performRequest(request);
         System.out.println(response);
     }
     
     private Map<String, Object> makeStateMap() {
-        Map map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<String, Object>();
 //        map.put("accidentNo", "1");
-        map.put("clientClass", "3");
+//        map.put("clientClass", "3");
+        map.put("driverAge", 23);
+        map.put("driverLicenceAge", 2);
+        map.put("driverDiscount", 100);
         return map;
     }
 }
