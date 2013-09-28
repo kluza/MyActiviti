@@ -3,9 +3,11 @@ package pl.edu.agh.heart.taskdelegate;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -22,6 +24,7 @@ public class HeartDelegate implements JavaDelegate {
     private Expression attributeSet;
     private HeartRequestHandler heartHandler = new HeartRequestHandler();
     private HttpConnector httpConnector;
+    private static Map<String, Set<String>> stateVars = new HashMap<String, Set<String>>();
     
     public HeartDelegate() throws IOException {
         Properties props = new Properties();
@@ -59,19 +62,35 @@ public class HeartDelegate implements JavaDelegate {
             throw new Exception("Heart request failed!");
         }
         List<String> inAtts = heartHandler.getInAtts(response);
+        Set<String> stateVars = getExecutionStateVars(execution);
         for (String att: inAtts) {
             if (!execution.hasVariable(att)) {
                 throw new ActivitiException("Variable " + att + " has not been defined!");
             }
+            stateVars.add(att);
+        }
+        for (String att: stateVars) {
             stateMap.put(att, execution.getVariable(att));
         }
         return stateMap;
     }
     
     private void saveState(Map<String, Object> state, DelegateExecution execution) {
+        Set<String> stateVars = getExecutionStateVars(execution);
         for (String s: state.keySet()) {
             execution.setVariable(s, state.get(s));
+            stateVars.add(s);
         }
+    }
+    
+    private Set<String> getExecutionStateVars(DelegateExecution execution) {
+        String id = execution.getProcessInstanceId();
+        Set<String> result = stateVars.get(id);
+        if (result == null) {
+            result = new HashSet<String>();
+            stateVars.put(id, result);
+        }
+        return result;
     }
     
     public Expression getModelName() {
