@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.Test;
 import pl.edu.agh.heart.comm.HeartRepository;
+import pl.edu.agh.heart.model.HMRModel;
 
 /** @author ja */
 public class HMRObjectModel {
@@ -31,13 +32,13 @@ public class HMRObjectModel {
         Pattern schemePattern = Pattern.compile(schemepat);
         String hmr = hr.getModelHMR("ploc", "jBPM");
 //        System.out.println(hmr);
-//        HMRModel hmrModel = new HMRModel(hmr);
-//        System.out.println(hmrModel.getSchemesAndRules());
+        HMRModel hmrModel = new HMRModel(hmr);
+        System.out.println(hmrModel.getSchemeNames());
         Matcher matcher = schemePattern.matcher(hmr);
         while (matcher.find()) {
             String m = matcher.group();
             System.out.println(m);
-            System.out.println(m.split("xschm")[1]);
+            System.out.println(m.split("xschm")[1].split(":")[0].trim());
         }
     }
 }

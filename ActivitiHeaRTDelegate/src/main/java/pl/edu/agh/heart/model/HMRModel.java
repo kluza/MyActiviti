@@ -9,20 +9,22 @@ package pl.edu.agh.heart.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /** @author ja */
 public class HMRModel {
-    private static final String TYPE = "^xtype.*\\.$";
-    private static final String ATTR = "^xattr.*\\.$";
-    private static final String TYPEG = "^xtpgr.*\\.$";
-    private static final String ATTRG = "^xatgr.*\\.$";
-    private static final String SCHEME = "^xschm.*\\.$";
-    private static final String RULE = "^xrule.*\\.$";
-    private static final String STATE = "^xstat.*\\.$";
-    private static final String CBK = "^xcall.*\\.$";
-    private static final String ACTION = "^xactn.*\\.$";
-    private static final String VERIFICATION = "^xhalv.*\\.$";
-    private static final String TRAJECTORY = "^xtraj.*\\.$";
+    private static final String TYPE = "xtype.*]\\.";
+    private static final String ATTR = "xattr.*]\\.";
+    private static final String TYPEG = "xtpgr.*]\\.";
+    private static final String ATTRG = "xatgr.*]\\.";
+    private static final String SCHEME = "xschm.*]\\.";
+    private static final String RULE = "xrule.*]\\.";
+    private static final String STATE = "xstat.*]\\.";
+    private static final String CBK = "xcall.*]\\.";
+    private static final String ACTION = "xactn.*]\\.";
+    private static final String VERIFICATION = "xhalv.*]\\.";
+    private static final String TRAJECTORY = "xtraj.*]\\.";
     
     private List<String> types = new ArrayList<String>();
     private List<String> attributes = new ArrayList<String>();
@@ -54,45 +56,95 @@ public class HMRModel {
     }
     
     public void parseData(String hmrDef) {
-        String[] modelLines = hmrDef.split("\\.");
-        for (String foo: modelLines) {
-            String line = foo.trim().replace("\n", "") + '.';
-            if (line.matches(TYPE)) {
-                types.add(line);
-            }
-            if (line.matches(ATTR)) {
-                attributes.add(line);
-            }
-            if (line.matches(TYPEG)) {
-                typeGroups.add(line);
-            }
-            if (line.matches(ATTRG)) {
-                attGroups.add(line);
-            }
-            if (line.matches(SCHEME)) {
-                schemes.add(line);
-                extractSchemeName(line);
-            }
-            if (line.matches(RULE)) {
-                rules.add(line);
-            }
-            if (line.matches(STATE)) {
-                states.add(line);
-            }
-            if (line.matches(CBK)) {
-                callbacks.add(line);
-            }
-            if (line.matches(ACTION)) {
-                actions.add(line);
-            }
-            if (line.matches(VERIFICATION)) {
-                verifications.add(line);
-            }
-            if (line.matches(TRAJECTORY)) {
-                trajectories.add(line);
-            }
+        Matcher m = Pattern.compile(TYPE).matcher(hmrDef);
+        while (m.find()) {
+            types.add(m.group());
+        }
+        m = Pattern.compile(ATTR).matcher(hmrDef);
+        while (m.find()) {
+            attributes.add(m.group());
+        }
+        m = Pattern.compile(TYPEG).matcher(hmrDef);
+        while (m.find()) {
+            typeGroups.add(m.group());
+        }
+        m = Pattern.compile(ATTRG).matcher(hmrDef);
+        while (m.find()) {
+            attGroups.add(m.group());
+        }
+        m = Pattern.compile(SCHEME).matcher(hmrDef);
+        while (m.find()) {
+            String g = m.group();
+            schemes.add(g);
+            extractSchemeName(g);
+        }
+        //
+        m = Pattern.compile(RULE).matcher(hmrDef);
+        while (m.find()) {
+            rules.add(m.group());
+        }
+        m = Pattern.compile(STATE).matcher(hmrDef);
+        while (m.find()) {
+            states.add(m.group());
+        }
+        m = Pattern.compile(CBK).matcher(hmrDef);
+        while (m.find()) {
+            callbacks.add(m.group());
+        }
+        m = Pattern.compile(ACTION).matcher(hmrDef);
+        while (m.find()) {
+            actions.add(m.group());
+        }
+        m = Pattern.compile(VERIFICATION).matcher(hmrDef);
+        while (m.find()) {
+            verifications.add(m.group());
+        }
+        m = Pattern.compile(TRAJECTORY).matcher(hmrDef);
+        while (m.find()) {
+            trajectories.add(m.group());
         }
     }
+    
+//    public void parseData(String hmrDef) {
+//        String[] modelLines = hmrDef.split("]\\.");
+//        for (String foo: modelLines) {
+//            String line = foo.trim().replace("\n", "") + "].";
+//            if (line.matches(TYPE)) {
+//                types.add(line);
+//            }
+//            if (line.matches(ATTR)) {
+//                attributes.add(line);
+//            }
+//            if (line.matches(TYPEG)) {
+//                typeGroups.add(line);
+//            }
+//            if (line.matches(ATTRG)) {
+//                attGroups.add(line);
+//            }
+//            if (line.matches(SCHEME)) {
+//                schemes.add(line);
+//                extractSchemeName(line);
+//            }
+//            if (line.matches(RULE)) {
+//                rules.add(line);
+//            }
+//            if (line.matches(STATE)) {
+//                states.add(line);
+//            }
+//            if (line.matches(CBK)) {
+//                callbacks.add(line);
+//            }
+//            if (line.matches(ACTION)) {
+//                actions.add(line);
+//            }
+//            if (line.matches(VERIFICATION)) {
+//                verifications.add(line);
+//            }
+//            if (line.matches(TRAJECTORY)) {
+//                trajectories.add(line);
+//            }
+//        }
+//    }
     
     public String getTypes() {
         return list2str(types);
@@ -115,7 +167,10 @@ public class HMRModel {
     }
     
     private void extractSchemeName(String schemeLine) {
-        String name = schemeLine.split(" ", 2)[1].split(":", 2)[0].trim();
+        String name = schemeLine.split("xschm", 2)[1].split(":", 2)[0].trim();
+        if (name.charAt(0) == '\'') {
+            name = name.substring(1, name.length() - 1);
+        }
         schemeNames.add(name);
     }
     
