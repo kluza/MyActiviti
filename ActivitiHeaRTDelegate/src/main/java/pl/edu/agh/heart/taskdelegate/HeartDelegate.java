@@ -13,7 +13,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import pl.edu.agh.heart.comm.HeartRequestHandler;
-import pl.edu.agh.heart.comm.HttpConnector;
+import pl.edu.agh.heart.comm.HeartHttpConnector;
 import pl.edu.agh.heart.constants.Constants;
 
 /** @author ja */
@@ -23,7 +23,7 @@ public class HeartDelegate implements JavaDelegate {
     private Expression table;
     private Expression attributeSet;
     private HeartRequestHandler heartHandler = new HeartRequestHandler();
-    private HttpConnector httpConnector;
+    private HeartHttpConnector httpConnector;
     private static Map<String, Set<String>> stateVars = new HashMap<String, Set<String>>();
     
     public HeartDelegate() throws IOException {
@@ -32,7 +32,7 @@ public class HeartDelegate implements JavaDelegate {
         props.load(propIs);
         String host = props.getProperty("hostName");
         int port = Integer.valueOf(props.getProperty("port"));
-        httpConnector = new HttpConnector(true, host, port);
+        httpConnector = new HeartHttpConnector(true, host, port);
     }
     
     public void execute(DelegateExecution execution) throws Exception {

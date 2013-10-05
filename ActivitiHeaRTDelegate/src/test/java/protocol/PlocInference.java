@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
 import pl.edu.agh.heart.comm.HeartRequestHandler;
-import pl.edu.agh.heart.comm.HttpConnector;
+import pl.edu.agh.heart.comm.HeartHttpConnector;
 
 /** @author ja */
 public class PlocInference {
-    HttpConnector httpConnector = new HttpConnector(true, "localhost", 8090);
+    HeartHttpConnector httpConnector = new HeartHttpConnector(true, "localhost", 8090);
     
     @Test
     public void test() throws Exception {

@@ -20,7 +20,7 @@ import pl.edu.agh.heart.constants.Constants;
 
 /** @author ja */
 public class HeartRepository {
-    private HttpConnector httpConnector;
+    private HeartHttpConnector httpConnector;
     
     public HeartRepository() throws IOException {
         Properties props = new Properties();
@@ -28,7 +28,7 @@ public class HeartRepository {
         props.load(propIs);
         String host = props.getProperty("hostName");
         int port = Integer.valueOf(props.getProperty("port"));
-        httpConnector = new HttpConnector(true, host, port);
+        httpConnector = new HeartHttpConnector(true, host, port);
     }
     
     public Map<String, List<String>> getModelNames() throws Exception {

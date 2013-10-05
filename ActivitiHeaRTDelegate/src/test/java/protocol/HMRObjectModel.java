@@ -7,8 +7,6 @@
  */
 package protocol;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.junit.Test;
 import pl.edu.agh.heart.comm.HeartRepository;
 import pl.edu.agh.heart.model.HMRModel;
@@ -28,17 +26,12 @@ public class HMRObjectModel {
 //        model.parseData(foo);
 //        System.out.println(hr.pushModelHMR("test", "jBPM", model.toString()));
 //        System.out.println(model.getSchemeNames());
-        String schemepat = "xschm.*\\].";
-        Pattern schemePattern = Pattern.compile(schemepat);
+//        String schemepat = "xschm.*\\].";
+//        Pattern schemePattern = Pattern.compile(schemepat);
         String hmr = hr.getModelHMR("ploc", "jBPM");
+//        System.out.println(hmr);
 //        System.out.println(hmr);
         HMRModel hmrModel = new HMRModel(hmr);
         System.out.println(hmrModel.getSchemeNames());
-        Matcher matcher = schemePattern.matcher(hmr);
-        while (matcher.find()) {
-            String m = matcher.group();
-            System.out.println(m);
-            System.out.println(m.split("xschm")[1].split(":")[0].trim());
-        }
     }
 }
