@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) {
         BufferedReader inBr = new BufferedReader(new InputStreamReader(System.in));
-        HQEdHttpConnector httpConn = new HQEdHttpConnector(true, "127.0.0.1", 8090);
+        HQEdHttpConnector httpConn = new HQEdHttpConnector(true, "127.0.0.1", 8082);
         
         while (true) {
             String inLine;

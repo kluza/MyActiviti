@@ -54,7 +54,7 @@ public class HQEdHttpConnector implements HttpConnector {
             out = new DataOutputStream(socket.getOutputStream());
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             
-            out.writeBytes(request + "\n\0");
+            out.writeBytes(request.replace("\n", "") + "\0");
             out.flush();
             while (true) {
                 int r = in.read();
