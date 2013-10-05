@@ -7,9 +7,8 @@
  */
 package pl.edu.agh.heart.constants;
 
-
 /** @author ja */
 public class Constants {
     public static final String H_CONN_PATH = "props/HeartComm.properties";
-    
+    public static final String HQED_CONN_PATH = "props/HQEdComm.properties";
 }

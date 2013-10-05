@@ -20,15 +20,36 @@ import pl.edu.agh.heart.constants.Constants;
 
 /** @author ja */
 public class HeartRepository {
-    private HeartHttpConnector httpConnector;
+    private HttpConnector httpConnector;
     
     public HeartRepository() throws IOException {
+        initForHeart();
+    }
+    
+    public HeartRepository(boolean hqed) throws IOException {
+        if (hqed) {
+            initForHQEd();
+        } else {
+            initForHeart();
+        }
+    }
+    
+    private void initForHeart() throws IOException {
         Properties props = new Properties();
         InputStream propIs = getClass().getClassLoader().getResourceAsStream(Constants.H_CONN_PATH);
         props.load(propIs);
         String host = props.getProperty("hostName");
         int port = Integer.valueOf(props.getProperty("port"));
         httpConnector = new HeartHttpConnector(true, host, port);
+    }
+    
+    private void initForHQEd() throws IOException {
+        Properties props = new Properties();
+        InputStream propIs = getClass().getClassLoader().getResourceAsStream(Constants.HQED_CONN_PATH);
+        props.load(propIs);
+        String host = props.getProperty("hostName");
+        int port = Integer.valueOf(props.getProperty("port"));
+        httpConnector = new HQEdHttpConnector(true, host, port);
     }
     
     public Map<String, List<String>> getModelNames() throws Exception {
