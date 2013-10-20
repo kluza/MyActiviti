@@ -1,7 +1,6 @@
 package pl.edu.agh.heart.comm;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -35,7 +34,7 @@ public class HQEdHttpConnector implements HttpConnector {
     }
     
     public String performRequest(String request) throws Exception {
-        DataOutputStream out = null;
+        PrintWriter out = null;
         BufferedReader in = null;
         Socket socket = null;
         String replay = null;
@@ -51,10 +50,10 @@ public class HQEdHttpConnector implements HttpConnector {
             }
 //            socket.setSoTimeout(300);
             
-            out = new DataOutputStream(socket.getOutputStream());
+            out = new PrintWriter(socket.getOutputStream());
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             
-            out.writeBytes(request.replace("\n", "") + "\0");
+            out.println(request);
             out.flush();
             while (true) {
                 int r = in.read();

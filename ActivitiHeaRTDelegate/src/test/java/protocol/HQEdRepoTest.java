@@ -8,6 +8,7 @@
 package protocol;
 
 import org.junit.Test;
+import pl.edu.agh.heart.comm.HQEdHttpConnector;
 import pl.edu.agh.heart.comm.HeartRepository;
 
 /** @author ja */
@@ -18,7 +19,18 @@ public class HQEdRepoTest {
         HeartRepository heartRepo = new HeartRepository();
         HeartRepository hqRepo = new HeartRepository(true);
         
-        String plocHmr = heartRepo.getModelHMR("ploc", "jBPM");
-        hqRepo.pushModelHMR("ploc", "jBPM", plocHmr);
+        String request =
+                "[model,add,hmr,'MyName','Username','xtype [ name: week_days, base: symbolic, ordered: yes, domain: [moday,tuesday], desc: \'This is only one definition\'].'].";
+        
+//        String plocHmr = heartRepo.getModelHMR("ploc", "jBPM");
+//        for (int i = 0; i < 10; i++) {
+//            hqRepo.pushModelHMR("ploc", "jBPM", plocHmr);
+//        }
+        
+        HQEdHttpConnector http = new HQEdHttpConnector(true, "127.0.0.1", 8082);
+        for (int i = 0; i < 10; i++) {
+            String response = http.performRequest(request);
+            System.out.println(response);
+        }
     }
 }
