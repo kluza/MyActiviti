@@ -16,6 +16,7 @@ import com.vaadin.ui.AbstractSelect;
 /** @author ja */
 public class HeartPage extends AbstractPage {
     private HeartRepository heartRepository;
+    private HeartRepository hqedRepository;
     private HeartPanel detailPanel;
     
     protected ToolBar createMenuBar() {
@@ -37,10 +38,12 @@ public class HeartPage extends AbstractPage {
         super.initUi();
         try {
             heartRepository = new HeartRepository();
+            hqedRepository = new HeartRepository(true);
         } catch (IOException exception) {
             // TODO Handle exception using log4j or CLog
+            exception.printStackTrace();
         }
-        detailPanel = new HeartPanel(this);
+        detailPanel = new HeartPanel(this, heartRepository);
         setDetailComponent(detailPanel);
     }
     
@@ -49,6 +52,10 @@ public class HeartPage extends AbstractPage {
     }
     
     public void showHeaRT() {
-        setDetailComponent(new HeartPanel(this));
+        setDetailComponent(new HeartPanel(this, heartRepository));
+    }
+    
+    public void showHQEd() {
+        setDetailComponent(new HeartPanel(this, hqedRepository));
     }
 }

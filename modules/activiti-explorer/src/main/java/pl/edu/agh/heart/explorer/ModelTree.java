@@ -18,11 +18,10 @@ import com.vaadin.ui.Tree;
 
 /** @author ja */
 public class ModelTree {
-    public static Tree get(HeartPanel panel) {
+    public static Tree get(HeartPanel panel, HeartRepository hr) {
         Tree tree = new Tree();
         tree.setImmediate(true);
         try {
-            HeartRepository hr = panel.getMasterPage().getHeartRepository();
             Map<String, List<String>> modelMap = hr.getModelNames();
             for (String user: modelMap.keySet()) {
                 tree.addItem(user);
@@ -39,7 +38,7 @@ public class ModelTree {
                 }
                 tree.expandItemsRecursively(user);
             }
-            tree.addListener(new ModelTreeListener(tree, panel));
+            tree.addListener(new ModelTreeListener(tree, panel, hr));
         } catch (IOException exception) {
             String errMsg = "Communication exception";
             tree.addItem(errMsg);
@@ -71,10 +70,12 @@ public class ModelTree {
 class ModelTreeListener implements ValueChangeListener {
     private Tree tree;
     private HeartPanel panel;
+    private HeartRepository hr;
     
-    public ModelTreeListener(Tree tree, HeartPanel panel) {
+    public ModelTreeListener(Tree tree, HeartPanel panel, HeartRepository hr) {
         this.tree = tree;
         this.panel = panel;
+        this.hr = hr;
     }
     
     public void valueChange(ValueChangeEvent pEvent) {
@@ -82,7 +83,6 @@ class ModelTreeListener implements ValueChangeListener {
         if (value instanceof ModelTree.ModelTreeItem) {
             try {
                 ModelTree.ModelTreeItem model = (ModelTree.ModelTreeItem) value;
-                HeartRepository hr = panel.getMasterPage().getHeartRepository();
                 String modelDef = hr.getModelHMR(model.name, model.user);
 //                panel.getText().setValue(modelDef);
                 if (modelDef != null) {

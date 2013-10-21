@@ -8,6 +8,7 @@
 package pl.edu.agh.heart.explorer;
 
 import org.activiti.explorer.ui.custom.DetailPanel;
+import pl.edu.agh.heart.comm.HeartRepository;
 import pl.edu.agh.heart.model.HMRModel;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
@@ -18,6 +19,7 @@ import com.vaadin.ui.VerticalLayout;
 public class HeartPanel extends DetailPanel {
     private Tree modelTree;
     private HeartPage masterPage;
+    private HeartRepository heartRepository;
     private HorizontalLayout mainLayout;
     private VerticalLayout sideLayout;
     private ModelDetailView modelDetails;
@@ -25,8 +27,9 @@ public class HeartPanel extends DetailPanel {
     private Button saveButton;
     private Button verifyButton;
     
-    public HeartPanel(HeartPage p) {
+    public HeartPanel(HeartPage p, HeartRepository hr) {
         masterPage = p;
+        heartRepository = hr;
     }
     
     public void attach() {
@@ -38,7 +41,7 @@ public class HeartPanel extends DetailPanel {
         sideLayout.setImmediate(true);
         addDetailComponent(mainLayout);
         setDetailExpandRatio(mainLayout, 1.0F);
-        modelTree = ModelTree.get(this);
+        modelTree = ModelTree.get(this, heartRepository);
         mainLayout.addComponent(modelTree);
 //        layout.addComponent(text);
         modelDetails = new ModelDetailView(masterPage);
