@@ -19,7 +19,7 @@ public class HeartPage extends AbstractPage {
     private HeartPanel detailPanel;
     
     protected ToolBar createMenuBar() {
-        return null;
+        return new HeartMenuBar(this);
     }
     
     protected AbstractSelect createSelectComponent() {
@@ -48,4 +48,7 @@ public class HeartPage extends AbstractPage {
         return heartRepository;
     }
     
+    public void showHeaRT() {
+        setDetailComponent(new HeartPanel(this));
+    }
 }
