@@ -21,6 +21,7 @@ import pl.edu.agh.heart.constants.Constants;
 /** @author ja */
 public class HeartRepository {
     private HttpConnector httpConnector;
+    private boolean hqed = false;
     
     public HeartRepository() throws IOException {
         initForHeart();
@@ -44,6 +45,7 @@ public class HeartRepository {
     }
     
     private void initForHQEd() throws IOException {
+        hqed = true;
         Properties props = new Properties();
         InputStream propIs = getClass().getClassLoader().getResourceAsStream(Constants.HQED_CONN_PATH);
         props.load(propIs);
@@ -73,6 +75,9 @@ public class HeartRepository {
     
     public String getModelHMR(String modelName, String userName) throws Exception {
         String request = "[model,get,hmr,'" + modelName + "','" + userName + "',[[all]]].";
+        if (hqed) {
+            request = "[model,get,hmr,'" + userName + "','" + modelName + "',[[all]]].";
+        }
         String response = httpConnector.performRequest(request);
         if (response.split(",")[0].trim().equals("[true")) {
             String modelDef = response.split(",", 2)[1];
