@@ -779,6 +779,7 @@
     <profile>
       <id>distro</id>
       <modules>
+		<module>ActivitiHeaRTDelegate</module>
         <module>modules/activiti-spring</module>
         <module>modules/activiti-bpmn-model</module>
         <module>modules/activiti-bpmn-converter</module>
